@@ -17,18 +17,18 @@ export class BooksController {
     }
 
     @Get(':id')
-    getBook(@Param('id') bookId: string) {
+    getBook(@Param('id') bookId: number) {
         return this.bookService.getSingleBook(bookId)
     }
 
     @Patch(':id')
-    updateBook(@Param('id') bookId: string, @Body('title') bookTitle: string, @Body('description') bookDescription: string, @Body('price') bookPrice: number) {
+    updateBook(@Param('id') bookId: number, @Body('title') bookTitle: string, @Body('description') bookDescription: string, @Body('price') bookPrice: number) {
         const updatedBook = this.bookService.updateBook(bookId, bookTitle, bookDescription, bookPrice);
         return updatedBook;
     }
 
     @Delete(':id')
-    removeBook(@Param('id') bookId: string) {
+    removeBook(@Param('id') bookId: number) {
         this.bookService.deleteBook(bookId);
         return null;
     }
