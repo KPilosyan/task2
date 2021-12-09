@@ -11,10 +11,6 @@ export class BooksService {
         private readonly bookModel: typeof Book,
     ) { }
 
-    // create(bookDto: CreateBookDto): Promise<Book> {
-    //     return this.bookModel.create(bookDto);
-    // }
-
     async insertBook(bookDto: CreateBookDto): Promise<Book> {
         try {
             const bookPosted = await this.bookModel.create(bookDto);
@@ -30,6 +26,7 @@ export class BooksService {
             const books = await this.bookModel.findAll();
             return books;
         } catch (err) {
+            this.logger.log(err);
             throw new InternalServerErrorException();
         }
     }
@@ -43,6 +40,7 @@ export class BooksService {
             }
             return book;
         } catch (err) {
+            this.logger.log(err);
             throw new InternalServerErrorException();
         }
     }
@@ -58,6 +56,7 @@ export class BooksService {
 
             return bookId;
         } catch (err) {
+            this.logger.log(err);
             throw new InternalServerErrorException();
         }
     }
@@ -71,6 +70,7 @@ export class BooksService {
             await this.bookModel.destroy({ where: { id: bookId } })
             return bookId;
         } catch (err) {
+            this.logger.log(err);
             throw new InternalServerErrorException();
         }
     }
