@@ -1,4 +1,6 @@
-import { Controller, Get, Post, Body, Param, Patch, Delete } from "@nestjs/common";
+import { Controller, Get, Post, Body, Param, Put, Delete } from "@nestjs/common";
+import { CreateBookDto } from "dto/create-book.dto";
+import { Book } from "models/book.entity";
 import { BooksService } from "./books.service";
 
 @Controller('books')
@@ -6,30 +8,29 @@ export class BooksController {
     constructor(private readonly bookService: BooksService) { }
 
     @Post()
-    addBook(@Body('title') bookTitle: string, @Body('description') bookDescription: string, @Body('price') bookPrice: number) {
-        const generatedBookId = this.bookService.insertBook(bookTitle, bookDescription, bookPrice);
-        return { id: generatedBookId };
+    addBook(@Body() createBookDto: CreateBookDto): Promise<Book> {
+        const generatedBookId = this.bookService.insertBook(createBookDto);
+        return generatedBookId;
     }
 
     @Get()
-    getAllBooks() {
+    getAllBooks(): Promise<Book[]> {
         return this.bookService.getBooks();
     }
 
     @Get(':id')
-    getBook(@Param('id') bookId: number) {
+    getBook(@Param('id') bookId: number): Promise<Book> {
         return this.bookService.getSingleBook(bookId)
     }
 
-    @Patch(':id')
-    updateBook(@Param('id') bookId: number, @Body('title') bookTitle: string, @Body('description') bookDescription: string, @Body('price') bookPrice: number) {
-        const updatedBook = this.bookService.updateBook(bookId, bookTitle, bookDescription, bookPrice);
-        return updatedBook;
+    @Put(':id')
+    updateBook(@Param('id') bookId: number, @Body() createBookDto: CreateBookDto): Promise<number> {
+        const updatedBookId = this.bookService.updateBook(bookId, createBookDto);
+        return updatedBookId;
     }
 
     @Delete(':id')
-    removeBook(@Param('id') bookId: number) {
-        this.bookService.deleteBook(bookId);
-        return null;
+    removeBook(@Param('id') bookId: number): Promise<number> {
+        return this.bookService.deleteBook(bookId);
     }
 }
