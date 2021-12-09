@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "karen",
+    "password": "password",
+    "database": "books",
+    "port": "3400",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "karen",
+    "password": "password",
+    "database": "books",
+    "port": "3400",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "karen",
+    "password": "password",
+    "database": "books",
+    "port": "3400",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
