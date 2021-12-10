@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
-import { BooksController } from "./books.controller";
-import { BooksService } from "./books.service";
+import { BooksController } from "../controllers/books.controller";
+import { BooksService } from "../services/books.service";
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Book } from "models/book.entity";
 

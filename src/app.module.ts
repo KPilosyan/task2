@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { BooksModule } from './books/books.module';
+import { BooksModule } from './modules/books.module';
+import { UsersModule } from './modules/users.module';
 
 @Module({
     imports: [
@@ -15,6 +16,7 @@ import { BooksModule } from './books/books.module';
             synchronize: true,
         }),
         BooksModule,
+        UsersModule,
     ],
 })
 export class AppModule { }
