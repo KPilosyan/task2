@@ -1,7 +1,8 @@
+/* eslint-disable indent */
 import { Table, Column, Model } from 'sequelize-typescript';
 
 @Table
-export class Book extends Model {
+export default class Book extends Model {
   @Column
   title: string;
 

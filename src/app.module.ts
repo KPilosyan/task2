@@ -1,7 +1,10 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable indent */
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { BooksModule } from './modules/books.module';
-import { UsersModule } from './modules/users.module';
+import BooksModule from './modules/books.module';
+import UsersModule from './modules/users.module';
+import AuthModule from './auth/auth.module';
 
 @Module({
     imports: [
@@ -17,6 +20,7 @@ import { UsersModule } from './modules/users.module';
         }),
         BooksModule,
         UsersModule,
+        AuthModule,
     ],
 })
-export class AppModule { }
+export default class AppModule { }

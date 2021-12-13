@@ -1,11 +1,17 @@
-import { Injectable, NotFoundException, InternalServerErrorException, Logger } from "@nestjs/common";
-import { Book } from '../../models/book.entity';
+/* eslint-disable no-useless-constructor */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable indent */
+import {
+    Injectable, NotFoundException, InternalServerErrorException, Logger,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { CreateBookDto } from "dto/create-book.dto";
+import CreateBookDto from 'src/dto/create-book.dto';
+import Book from '../models/book.entity';
 
 @Injectable()
-export class BooksService {
+export default class BooksService {
     private readonly logger = new Logger(BooksService.name);
+
     constructor(
         @InjectModel(Book)
         private readonly bookModel: typeof Book,
@@ -52,7 +58,7 @@ export class BooksService {
                 throw new NotFoundException();
             }
             const { title, description, price } = bookDto;
-            await this.bookModel.update({ title, description, price }, { where: { id: bookId } })
+            await this.bookModel.update({ title, description, price }, { where: { id: bookId } });
 
             return bookId;
         } catch (err) {
@@ -67,7 +73,7 @@ export class BooksService {
             if (book === null) {
                 throw new NotFoundException();
             }
-            await this.bookModel.destroy({ where: { id: bookId } })
+            await this.bookModel.destroy({ where: { id: bookId } });
             return bookId;
         } catch (err) {
             this.logger.log(err);

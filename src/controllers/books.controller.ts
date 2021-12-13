@@ -1,11 +1,15 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from "@nestjs/common";
-import { CreateBookDto } from "dto/create-book.dto";
-import { Book } from "models/book.entity";
-import { BooksService } from "../services/books.service";
+/* eslint-disable import/no-unresolved */
+/* eslint-disable indent */
+import {
+    Controller, Get, Post, Body, Param, Put, Delete,
+} from '@nestjs/common';
+import CreateBookDto from 'src/dto/create-book.dto';
+import Book from 'src/models/book.entity';
+import BooksService from '../services/books.service';
 
 @Controller('books')
-export class BooksController {
-    constructor(private readonly bookService: BooksService) { }
+export default class BooksController {
+    private readonly bookService: BooksService;
 
     @Post()
     addBook(@Body() createBookDto: CreateBookDto): Promise<Book> {
@@ -20,7 +24,7 @@ export class BooksController {
 
     @Get(':id')
     getBook(@Param('id') bookId: number): Promise<Book> {
-        return this.bookService.getSingleBook(bookId)
+        return this.bookService.getSingleBook(bookId);
     }
 
     @Put(':id')
