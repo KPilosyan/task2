@@ -1,10 +1,9 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable indent */
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import BooksModule from './modules/books.module';
-import UsersModule from './modules/users.module';
+import BooksModule from './books/books.module';
+import UsersModule from './users/users.module';
 import AuthModule from './auth/auth.module';
+import AuthService from './auth/auth.service';
 
 @Module({
     imports: [

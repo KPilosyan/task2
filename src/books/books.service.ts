@@ -1,12 +1,9 @@
-/* eslint-disable no-useless-constructor */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable indent */
 import {
     Injectable, NotFoundException, InternalServerErrorException, Logger,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import CreateBookDto from 'src/dto/create-book.dto';
-import Book from '../models/book.entity';
+import Book from './book.entity';
 
 @Injectable()
 export default class BooksService {
@@ -41,12 +38,10 @@ export default class BooksService {
         try {
             const book = await this.bookModel.findOne({ where: { id: bookId } });
 
-            if (book === null) {
-                throw new NotFoundException();
-            }
             return book;
         } catch (err) {
             this.logger.log(err);
+
             throw new InternalServerErrorException();
         }
     }

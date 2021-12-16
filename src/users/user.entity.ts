@@ -1,15 +1,11 @@
-/* eslint-disable indent */
 import { Table, Column, Model } from 'sequelize-typescript';
 
 @Table
 export default class User extends Model {
   @Column
-  name: string;
+  username: string;
 
   unique: true;
-
-  @Column
-  email: string;
 
   @Column
   password: string;

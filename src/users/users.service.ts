@@ -1,10 +1,7 @@
-/* eslint-disable no-useless-constructor */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable indent */
 import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import CreateUserDto from 'src/dto/create-user.dto';
-import User from '../models/user.entity';
+import { RegisterDto } from 'src/dto/create-user.dto';
+import User from './user.entity';
 
 @Injectable()
 export default class UsersService {
@@ -12,12 +9,12 @@ export default class UsersService {
 
     constructor(
         @InjectModel(User)
-        private readonly userModel: typeof User,
+        private userModel: typeof User,
     ) { }
 
-    async insertUser(userDto: CreateUserDto): Promise<User> {
+    async insertUser(registerDto: RegisterDto): Promise<User> {
         try {
-            const addedUser = await this.userModel.create(userDto);
+            const addedUser = await this.userModel.create(registerDto);
             return addedUser;
         } catch (err) {
             this.logger.log(err);
@@ -25,9 +22,9 @@ export default class UsersService {
         }
     }
 
-    async getUser(name: string): Promise<User> {
+    async getUser(username: string): Promise<User> {
         try {
-            const user = await this.userModel.findOne({ where: { name } });
+            const user = await this.userModel.findOne({ where: { username: username } });
 
             return user;
         } catch (err) {
