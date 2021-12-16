@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+
+  books:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: books
+      POSTGRES_USER: karen
+    ports:
+      - 3400:5432
