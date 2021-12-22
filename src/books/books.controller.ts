@@ -4,20 +4,13 @@ import {
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import CreateBookDto from 'src/dto/create-book.dto';
+import CreateGoogleBooksDto from 'src/dto/create-google-book.dto';
 import Book from './book.entity';
 import BooksService from './books.service';
 
 @Controller('books')
 export default class BooksController {
     constructor(private readonly bookService: BooksService) { }
-
-    @UseGuards(JwtAuthGuard)
-    @ApiBearerAuth()
-    @Post()
-    async addBook(@Body() createBookDto: CreateBookDto): Promise<Book> {
-        const generatedBookId = this.bookService.insertBook(createBookDto);
-        return generatedBookId;
-    }
 
     @UseGuards(JwtAuthGuard)
     @ApiBearerAuth()
@@ -46,5 +39,16 @@ export default class BooksController {
     @Delete(':id')
     async removeBook(@Param('id') bookId: number): Promise<number> {
         return this.bookService.deleteBook(bookId);
+    }
+
+    @Post()
+    async getGoogleBooks(@Body() gglBooksDto: CreateGoogleBooksDto): Promise<any> {
+        Object.values(gglBooksDto).forEach((el, index) => {
+            if (el.includes(' ')) {
+                gglBooksDto[Object.keys(gglBooksDto)[index]] = el.replace(' ', '+');
+            }
+        })
+        const data = await this.bookService.getGoogleBooks(gglBooksDto);
+        return data;
     }
 }
